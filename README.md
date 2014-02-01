@@ -19,6 +19,13 @@ Downloading
 
 You can download a [pre-compiled binary](https://drive.google.com/folderview?id=0B1Aic_7xzqoJVHZlQUtCcjFvb0U). It doesn't contain any external libraries it may need.
 
+Tips
+----
+
+### Opening the deafult program for a file type
+
+If you want to run the default program for a particular file type, after clicking or selecting the file's link, choose *o* (open) as the action, then type *start /wait "a"* as the external program.
+
 Licensing
 ---------
 
