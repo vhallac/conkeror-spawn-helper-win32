@@ -14,6 +14,11 @@ Installation
 
 _Note_: The code is mostly portable C with Win32 definitions. You should be able to use a different compiler to build it, including MS Visual C++. I chose lcc for its minimal impact on the system.
 
+Downloading
+-----------
+
+You can download a [pre-compiled binary](https://drive.google.com/folderview?id=0B1Aic_7xzqoJVHZlQUtCcjFvb0U). It doesn't contain any external libraries it may need.
+
 Licensing
 ---------
 
