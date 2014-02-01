@@ -1,0 +1,42 @@
+diff --git a/modules/spawn-process.js b/modules/spawn-process.js
+index 5e94175..6e89cb5 100644
+--- a/modules/spawn-process.js
++++ b/modules/spawn-process.js
+@@ -66,10 +66,14 @@ minibuffer.prototype.read_shell_command = function () {
+ 
+ function find_spawn_helper () {
+     var f = file_locator_service.get("CurProcD", Ci.nsIFile);
+-    f.append("conkeror-spawn-helper");
++    var name = "conkeror-spawn-helper";
++    if (WINDOWS)
++        name = "conkeror-spawn-helper.exe";
++
++    f.append(name);
+     if (f.exists())
+         return f;
+-    return find_file_in_path("conkeror-spawn-helper");
++    return find_file_in_path(name);
+ }
+ 
+ const STDIN_FILENO = 0;
+@@ -600,11 +604,19 @@ function shell_command_with_argument_blind (command, arg) {
+  * $fds: File descriptors to use.
+  */
+ function shell_command (command) {
++    var result
++    if (WINDOWS)
++        result = yield spawn_and_wait_for_process("cmd.exe",
++                                                  [null, "/c", command],
++                                                  forward_keywords(arguments));
++    else
++    {
+     if (!POSIX)
+         throw new Error("shell_command: Your OS is not yet supported");
+-    var result = yield spawn_and_wait_for_process(getenv("SHELL") || "/bin/sh",
++    result = yield spawn_and_wait_for_process(getenv("SHELL") || "/bin/sh",
+                                                   [null, "-c", command],
+                                                   forward_keywords(arguments));
++    }
+     yield co_return(result);
+ }
+ 
